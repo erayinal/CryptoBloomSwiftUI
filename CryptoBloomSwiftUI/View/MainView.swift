@@ -38,11 +38,42 @@ struct MainView: View {
                     
                 }.padding(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
                 
-            }.navigationTitle(Text("Crypto Bloom "))
+            }//12: Eğer mesela biz her seferinde yenilemesini değil de sadece yenileme butonuna basılınca verilerin yenilenmesini istiyorsak ne olacak: Bu yüzden .task içeriğini yorum satırına alıyoruz ve toolbar içerisindeki butona kodlarımızı yazıyoruz
+            .toolbar(content: {
+                Button {
+                    Task.init{
+                        await cryptoListViewModal.downloadCryptosContinuation(url: URL(string: "https://raw.githubusercontent.com/atilsamancioglu/K21-JSONDataSet/master/crypto.json")!)
+                    }
+                } label: {
+                    Text("Refresh")
+                }
+
+            })
             
-        }.onAppear{
+            .navigationTitle(Text("Crypto Bloom "))
+            
+        }
+        
+        
+        /* //.12: yorum satırına aldım
+        .task {    //9: onAppear içersinde yazmadık çünkü onAppear async değil, ama .task direkt kendisi async
+            
+            //10: aşağıdaki yeri yorum satırına alıp yeninsini yzıyoruz
+            await cryptoListViewModal.downloadCryptosContinuation(url: URL(string: "https://raw.githubusercontent.com/atilsamancioglu/K21-JSONDataSet/master/crypto.json")!)
+            
+            /*
+            await cryptoListViewModal.downloadCryptosAsync(url: URL(string: "https://raw.githubusercontent.com/atilsamancioglu/K21-JSONDataSet/master/crypto.json")!)
+             */
+        }
+        */
+        
+        
+        
+        /*
+        .onAppear{
             cryptoListViewModal.downloadCryptos(url: URL(string: "https://raw.githubusercontent.com/atilsamancioglu/K21-JSONDataSet/master/crypto.json")!)
         }
+         */
         
         
         
